@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro'
 import Header from '../components/Header.astro'
+import '../styles/base.css'
 
 const {frontmatter} = Astro.props
 ---
@@ -15,9 +16,14 @@ const {frontmatter} = Astro.props
 		<meta name="generator" content={Astro.generator} />
 		<title>Duboc.io | {frontmatter.title}</title>
 	</head>
-	<body>
+	<style>
+		body {min-height: 100vh;}
+	</style>
+	<body class="border-t-8 border-blue-300 bg-blue-50 p-8">
 		<Header/>
 		<Nav/>
-		<slot />
+		<content>
+			<slot />
+		</content>
 	</body>
 </html>

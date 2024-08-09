@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  nav a {
+    @apply text-md;
+  }
+
+  content a {
+    @apply underline;
+  }
+
+  content h2 {
+    @apply text-lg;
+    @apply py-quarter;
+  }
+
+  content h3 {
+    @apply text-md;
+    @apply py-quarter;
+  }
+
+  content p,
+  content ul {
+    @apply pt-one;
+    @apply pb-half;
+  }
+
+  content ul {
+    @apply pl-5;
+    @apply list-disc;
+  }
+}
