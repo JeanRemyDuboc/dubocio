@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro'
 import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
 import '../styles/base.css'
 
 const {frontmatter} = Astro.props
@@ -19,11 +20,14 @@ const {frontmatter} = Astro.props
 	<style>
 		body {min-height: 100vh;}
 	</style>
-	<body class="border-t-8 border-blue-300 bg-blue-50 p-8">
-		<Header/>
-		<Nav/>
-		<content>
-			<slot />
-		</content>
+	<body class="border-t-8 border-blue-300 bg-blue-50 p-8 flex flex-col min-h-screen">
+		<div class="max-w-7xl ">
+			<Header/>
+			<Nav/>
+			<content>
+				<slot />
+			</content>
+		</div>
+		<Footer />
 	</body>
 </html>
