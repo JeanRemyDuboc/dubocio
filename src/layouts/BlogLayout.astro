@@ -4,16 +4,20 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import '../styles/base.css'
 
-const {title} = Astro.props
+const {frontmatter} = Astro.props
+const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString()
 ---
 
 <!doctype html>
 <html lang="en">
-	<Header title={title}/>
+	<Header title={frontmatter.title}/>
 	<body class="border-t-8 border-blue-300 bg-blue-50 p-8 flex flex-col min-h-screen">
 		<div class="max-w-7xl ">
 			<Nav/>
+			<a href="/blog" class="text-sm">← Back to Articles</a>
 			<content>
+				<h2>{frontmatter.title}</h2>
+				<p class="text-sm">{formattedDate}</p>
 				<slot />
 			</content>
 		</div>

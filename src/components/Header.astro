@@ -1,3 +1,15 @@
-<header>
-  <h1 class="text-xl"><a href="/">Duboc.io</a></h1>
-</header>
+---
+const {title} = Astro.props
+---
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="alternate" type="application/rss+xml" title="Your Site's Title" href={new URL("rss.xml", Astro.site)}/>
+    <title>{title} | Duboc.io</title>
+</head>
+<style>
+    body {min-height: 100vh;}
+</style>

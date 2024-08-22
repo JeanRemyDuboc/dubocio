@@ -1,0 +1,37 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "The Hidden Part of the Iceberg: Understanding Availability Bias in Web Analytics"
+pubDate: 2021-12-11
+---
+
+When we miss important data, we only see a fraction of reality: our worldview is dangerously inadequate. It's easy to make fundamental errors in our analysis; this is called selection bias.
+
+Availability bias, for example, is a type of selction bias that occurs when we rely too much on data available in our immediate environment, and mistakenly assume that this data is representative of the world as a whole.
+
+Let's take a look at an example, and learn some useful lessons for our analytics work.
+
+# How to depress customer service teams with record sales: Mark in customer care
+
+Marc was back home late that evening, for the third time this week, depressed. He's now convinced that the new range produced by ACME washing machines, the company he works for, are terrible, probably the worst on the market. He should know: for a month, he has spent his days trying to appease angry customers, stuck with a broken down machine, sometimes for the second or third time. Marc sincerely wants to help his customers, but he is now convinced that the product quality just isn't good enough.
+
+The next day, at coffee break, he chats for a moment with Sabine, his colleague in marketing. "We're going to have a great quarter," she tells him enthusiastically, "the new machines are a hit". "Are you kidding! They are all broken down, we are inundated with calls in customer care! This new range is killing us!".
+
+A few months later, Sabine's prediction turns out to be correct: the new machines were indeed a hit: sales quadrupled. We even discover that the rate of returns to the after-sales service for the new machine is twice as low as for the previous model! The new machines are actually twice as reliable...so what happened?
+
+ACME quadrupled its sales, and the proportion of defective machines was halved. Overall, it's an excellent result, but locally, it still represents twice as many breakdowns to manage for poor Marc!
+
+Since, by definition, Marc only meets customers with a defective machine, he drew an erroneous conclusion, based on the partial data available around him: he presumes that the majority of machines are defective, when in reality it is is the opposite. Because he hasn't seen the overall sales figures, he is a victim of his environment, and of availability bias. Marc's data was missing essential context. Sabine, on the other hand, has access to data that's more representative of the general trend.
+
+It's important to note that we could have seen the opposite phenomenon: if ACME sold only a quarter as many new machines in the new range, but the machines broken down twice as often, Marc could have been happy to see very few machines coming back to the after-sales service, while Sabine would have been very worried about disappointing sales figures.
+
+# Availability bias in web analytics: the right questions to ask and avoid common pitfalls
+
+When you analyze the performance of a website with a tool like Google Analytics, you can easily, like Marc, become a victim of availability bias.
+
+Here are some ideas for avoiding this pitfall:
+
+- Your site users are not representatative of the entire population. What makes your users different? Why are they on your site and not another?
+- If your customers notice problems on your site and complain about it, are these complaints representative of a large issue, or are they just a minority? Conversely, if you have no complaints at all, is it because there are no problems, or are people leaving your application without telling you why their experience wasn't good enough? Check your bounce rate, identify the key pages with a high drop rate. You could find and fix critical bugs or design problems.
+- Always consider large changes in data in the proper context. If the number of conversions increases rapidly, for example, is it because of a promotion, a time of year that is traditionally more busy, a new version of the site, a bug fix, etc. ? If possible, compare your number from year to year. Your latest record sale might not be that impressive. Likewise, a sudden and unexpected drop isn't always indicative of a a serious problem, maybe it's a perfectly natural adjustment.
+
+Have you ever been fooled by availability bias? What do you do to avoid this problem in your analysis? Share your experience in the comments!
