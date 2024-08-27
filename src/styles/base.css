@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply border-t-8;
+    @apply border-blue-300;
+    @apply bg-blue-50;
+    @apply px-one;
+    @apply sm:px-two;
+  }
+  
+  .page {    
+    @apply flex;
+    @apply flex-col;
+    @apply min-h-screen;
+    @apply max-w-7xl;
+    @apply pb-one;
+  }
+
   nav a {
     @apply text-md;
   }
@@ -11,24 +27,43 @@
     @apply underline;
   }
 
-  content h2 {
+  content h1 {
     @apply text-lg;
     @apply py-quarter;
   }
 
-  content h3 {
-    @apply text-md;
-    @apply py-quarter;
-  }
-
-  content p,
-  content ul {
+  content h2 {
     @apply pt-one;
-    @apply pb-half;
+    @apply text-md;
   }
 
-  content ul {
+  content h3 {
+    @apply font-bold;
+    @apply pt-half;
+  }
+
+  content p {
+    @apply py-half;
+  }
+  
+  content ul,
+  content ol{
     @apply pl-5;
+    @apply py-one;
+    @apply pb-one;
+  }
+  
+  content ul {
     @apply list-disc;
+  }
+
+  content ol {
+    @apply list-decimal;
+  }
+
+  .centre {
+    @apply flex;
+    @apply justify-center;
+    @apply items-center;
   }
 }

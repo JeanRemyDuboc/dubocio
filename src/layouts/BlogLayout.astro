@@ -11,16 +11,15 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString()
 <!doctype html>
 <html lang="en">
 	<Header title={frontmatter.title}/>
-	<body class="border-t-8 border-blue-300 bg-blue-50 p-8 flex flex-col min-h-screen">
-		<div class="max-w-7xl ">
+	<body>
+		<div class="page">
 			<Nav/>
-			<a href="/blog" class="text-sm">← Back to Articles</a>
 			<content>
-				<h2>{frontmatter.title}</h2>
-				<p class="text-sm">{formattedDate}</p>
+				<h1>{frontmatter.title}</h1>
+				<p class="italic">Latest update: {formattedDate}</p>
 				<slot />
 			</content>
+			<Footer />
 		</div>
-		<Footer />
 	</body>
 </html>
