@@ -13,12 +13,14 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString()
 	<Header title={frontmatter.title}/>
 	<body>
 		<div class="page">
+			<div class="content">
 			<Nav/>
-			<content>
-				<h1>{frontmatter.title}</h1>
-				<p class="italic">Latest update: {formattedDate}</p>
-				<slot />
-			</content>
+				<content>
+					<h1>{frontmatter.title}</h1>
+					<p class="italic">Latest update: {formattedDate}</p>
+					<slot />
+				</content>
+			</div>
 			<Footer />
 		</div>
 	</body>

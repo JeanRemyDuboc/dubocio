@@ -12,10 +12,12 @@ const {frontmatter} = Astro.props
 	<Header title={frontmatter.title}/>
 	<body>
 		<div class="page">
-			<Nav/>
-			<content>
-				<slot />
-			</content>
+			<div class="content">
+				<Nav/>
+				<content>
+					<slot />
+				</content>
+			</div>
 			<Footer />
 		</div>
 	</body>

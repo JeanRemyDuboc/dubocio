@@ -1,8 +1,10 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-title: "How to use GTM in a Vue 3 TypeScript Single Page Application Part 2 - Managing Events in the dataLayer"
+title: "How to use GTM in a Vue 3 Application Part 2 - Managing Events in the dataLayer"
 pubDate: 2023-05-22
 ---
+
+![](../../images/vue-gtm.png)
 
 In [the previous article](/blog/gtm_vue_part_1), I showed you the basic configuration for GTM in a Vue.JS application.
 Now let's see how [vue-gtm](https://github.com/gtm-support/vue-gtm) updates the datalayer on every page load. After that, we'll add a title for each page, using the Vue.JS router.
@@ -85,6 +87,8 @@ dataLayer.push({
 	content-view-name: "About"
 })
 ```
+
+
 
 # Updating Page Titles with the Vue.JS Router
 

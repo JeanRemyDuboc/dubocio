@@ -4,19 +4,22 @@
 
 @layer base {
   body {
-    @apply border-t-8;
-    @apply border-blue-300;
     @apply bg-blue-50;
-    @apply px-one;
-    @apply sm:px-two;
   }
   
   .page {    
     @apply flex;
     @apply flex-col;
+    @apply border-t-8;
+    @apply border-blue-300;
     @apply min-h-screen;
-    @apply max-w-7xl;
     @apply pb-one;
+  }
+  
+  .content {
+    @apply p-one;
+    @apply mx-auto;
+    @apply xl:w-[1280px];
   }
 
   pre {
