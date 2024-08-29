@@ -19,6 +19,10 @@
     @apply pb-one;
   }
 
+  pre {
+    @apply p-one;
+  }
+
   nav a {
     @apply text-md;
   }
@@ -29,11 +33,13 @@
 
   content h1 {
     @apply text-lg;
-    @apply py-quarter;
+    @apply pt-one;
+    @apply pb-quarter;
   }
 
   content h2 {
     @apply pt-one;
+    @apply pb-quarter;
     @apply text-md;
   }
 

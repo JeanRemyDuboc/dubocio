@@ -5,6 +5,13 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dubocio.github.io',
-  integrations: [mdx(), tailwind()]
+  site: 'https://duboc.io',
+  integrations: [mdx(), tailwind()],
+  markdown: {
+    shikiConfig: {
+      theme: 'solarized-dark',
+      wrap: true
+    },
+    syntaxHighlight: 'shiki'
+  }
 });

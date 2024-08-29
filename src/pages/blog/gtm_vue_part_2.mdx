@@ -1,0 +1,133 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "How to use GTM in a Vue 3 TypeScript Single Page Application Part 2 - Managing Events in the dataLayer"
+pubDate: 2023-05-22
+---
+
+In [the previous article](/blog/gtm_vue_part_1), I showed you the basic configuration for GTM in a Vue.JS application.
+Now let's see how [vue-gtm](https://github.com/gtm-support/vue-gtm) updates the datalayer on every page load. After that, we'll add a title for each page, using the Vue.JS router.
+We will also see how to register any type of event in the dataLayer with [vue-gtm](https://github.com/gtm-support/vue-gtm).
+
+You can refer to the following GitHub project to get all the source code: https://github.com/JeanRemyDuboc/vue-gtm/tree/Part-2.
+
+# How vue-GTM Triggers a `pageview` Event with Vue.js router
+
+When we initialized our application in `main.ts`, we added the router to our configuration:
+
+```typescript
+app.use(router)
+```
+
+We then configured the application with a new instance of [vue-gtm](https://github.com/gtm-support/vue-gtm):
+
+```typescript
+app.use(
+  createGtm({
+    id: "GTM-xxxx",
+    vueRouter: router
+  })
+)
+```
+
+Once this configuration is added, vue-gtm will update the dataLayer with a new event every time a new page is rendered in the browser. But how does it work ?
+
+Let's look in the [`@gtm-support/core`](https://github.com/gtm-support/core) module, which is the first building block for vue-gtm. In the file [`/src
+/gtm-support.ts`](https://github.com/gtm-support/core/blob/main/src/gtm-support.ts), a function called `trackView()` is used to track page views. It has two parameters: page name (`screenName`) and path (`path`).
+
+Later in the function, we retrieve the `dataLayer` object from context `window`:
+```typescript
+const dataLayer: DataLayerObject[] = (window.dataLayer =
+        window.dataLayer ?? []);
+```
+
+Then we trigger the `dataLayer.push` function with the necessary parameters:
+
+```typescript
+  dataLayer.push({
+	...additionalEventData,
+	event: this.options.trackViewEventProperty ?? 'content-view',
+	'content-name': path,
+	'content-view-name': screenName,
+  });
+```
+
+`trackView()` is triggered in `@gtm-support/vue-gtm/index.js`, in the `afterEach()` method of the router. For more information on the `afterEach()` function, see [the Vue.js router documentation](https://router.vuejs.org/api/interfaces/Router.html#Methods-afterEach).
+Note the addition of `additionalEventData`, which we can use to add custom properties in each route (documentation here: https://github.com/gtm-support/vue-gtm#sync-gtm-with-your-router) .
+
+It's as if we were writing the following code manually, each time a Vue.js route is triggered:
+
+```javascript
+dataLayer.push({
+	event: 'content-view',
+	content-name: <path of the route>,
+	content-view-name: <name of the route>
+})
+```
+
+Note that the name of the event added to the datalayer is "content-view" by default. It can be changed in our configuration with the `trackViewEventProperty` parameter, for example:
+
+```typescript
+app.use(
+  createGtm({
+    id: "GTM-T3BRZPM",
+    vueRouter: router,
+    trackViewEventProperty: 'page-load'
+  })
+)
+```
+
+With this new configuration, when we navigate to the `/about` page, the triggered code will be equivalent to:
+
+```typescript
+dataLayer.push({
+	event: 'page-load',
+	content-name: "/about",
+	content-view-name: "About"
+})
+```
+
+# Updating Page Titles with the Vue.JS Router
+
+While navigating in the Vue application, note that the `<title>` tag does not change when changing pages. This tag is hard coded in `index.html`. Without a distinct title, it will be difficult to identify each page on Google Analytics, and for the user it is better to have an explicit title for each page.
+So let's modify the content of this tag dynamically, using the router of our application. The goal is to use the "name" value for each route, and put that value in `<title>` on every page change.
+
+For this, we use the [beforeEach](https://router.vuejs.org/api/interfaces/Router.html#Methods-beforeEach) method of the router. As the name suggests, this function fires before each route loads. Once triggered, we can set up a new value for `<title>` with the `name` property of the route that was just loaded.
+To do all this, add the code below in `main.ts`:
+
+```typescript
+router.beforeEach((to, from, next) => {
+  // Get the page title from the route's 'name' attribute (if it exists)
+  if(typeof to.name === "string"){
+    const title = to.name
+    // If the route has a title, set it as the page title of the document/page
+    if (title) {
+      document.title =  title
+    }
+  }
+  // Continue resolving the route
+  next()
+})
+```
+
+Aaand voilà! Our page navigation is complete.
+
+# Adding a Custom Event in the DataLayer
+
+If we add other interactions in the application, we will have to trace them manually.
+Let's imagine that our application allows users to register. Once you have registered, you can trigger the `login` event, which is one of the [recommended events in GA4](https://support.google.com/analytics/answer/9267735?hl=fr).
+
+For that, nothing could be simpler: let's use `useGtm` and its `trackEvent` method (similar to `trackView`):
+
+```typescript
+import { useGtm } from '@gtm-support/vue-gtm';
+
+const gtm = useGtm()
+//Example of login event trigger...this should be inside a function that runs after the login
+gtm.trackEvent({
+  event: 'login'
+})
+```
+
+You can use this trigger on your page views or elsewhere in the app as needed. See my example here: https://github.com/JeanRemyDuboc/vue-gtm/blob/Part-2/src/views/AboutView.vue.
+
+And there you go! You can now track all your events with Vue.js and Google Tag Manager. Now, all you have to do is configure Google Analytics in Google Tag Manager, and add a GDPR banner.
