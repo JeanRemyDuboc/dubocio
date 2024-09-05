@@ -14,7 +14,7 @@ We will also see how to register any type of event in the dataLayer with [vue-gt
 
 You can refer to the following GitHub project to get all the source code: https://github.com/JeanRemyDuboc/vue-gtm/tree/Part-2.
 
-# How vue-GTM Triggers a `pageview` Event with Vue.js router
+## How vue-GTM Triggers a `pageview` Event with Vue.js router
 
 When we initialized our application in `main.ts`, we added the router to our configuration:
 
@@ -92,7 +92,7 @@ dataLayer.push({
 
 
 
-# Updating Page Titles with the Vue.JS Router
+## Updating Page Titles with the Vue.JS Router
 
 While navigating in the Vue application, note that the `<title>` tag does not change when changing pages. This tag is hard coded in `index.html`. Without a distinct title, it will be difficult to identify each page on Google Analytics, and for the user it is better to have an explicit title for each page.
 So let's modify the content of this tag dynamically, using the router of our application. The goal is to use the "name" value for each route, and put that value in `<title>` on every page change.
@@ -117,7 +117,7 @@ router.beforeEach((to, from, next) => {
 
 Aaand voilà! Our page navigation is complete.
 
-# Adding a Custom Event in the DataLayer
+## Adding a Custom Event in the DataLayer
 
 If we add other interactions in the application, we will have to trace them manually.
 Let's imagine that our application allows users to register. Once you have registered, you can trigger the `login` event, which is one of the [recommended events in GA4](https://support.google.com/analytics/answer/9267735?hl=fr).
