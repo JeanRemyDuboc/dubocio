@@ -30,7 +30,7 @@
     @apply text-md;
   }
 
-  content a:hover, nav a:hover {
+  a:hover {
     @apply underline;
   }
 
