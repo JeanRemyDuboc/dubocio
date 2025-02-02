@@ -19,7 +19,7 @@
   .content {
     @apply p-one;
     @apply mx-auto;
-    @apply xl:w-[1280px];
+    max-width: 864px;
   }
 
   pre {
