@@ -30,8 +30,16 @@
     @apply text-md;
   }
 
-  content a {
+  content a:hover, nav a:hover {
     @apply underline;
+  }
+
+  content p a {
+    @apply underline;
+  }
+
+  content p a:hover {
+    @apply text-blue-600;
   }
 
   content h1 {

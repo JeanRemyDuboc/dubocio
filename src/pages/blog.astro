@@ -11,6 +11,6 @@ const pageTitle = "Articles"
     <h2 class="pb-0">
       <a href={post.url}>{post.frontmatter.title}</a>
     </h2>
-    <p class="pb-one">{new Date(post.frontmatter.pubDate).toLocaleDateString()}</p>
+    <p class="pb-half">{new Date(post.frontmatter.pubDate).toLocaleDateString()}</p>
     )}
 </BaseLayout>
