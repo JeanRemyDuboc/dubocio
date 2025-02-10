@@ -78,6 +78,14 @@
     @apply list-decimal;
   }
 
+  content blockquote {
+    @apply py-1;
+    @apply px-5;
+    @apply italic;
+    @apply border-l-4;
+    @apply text-gray-600;
+  }
+
   .centre {
     @apply flex;
     @apply justify-center;
