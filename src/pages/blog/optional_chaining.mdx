@@ -1,0 +1,55 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "Optional chaining in Javascript, explained with pizza🍕"
+pubDate: 2022-10-27
+---
+
+<div class="centre">
+![](../../images/pizza.png)
+</div>
+
+When you wan to explorer an object in JS, you may need to go deep and "chain" multiple object properties.
+Look at a delicious object like this for instance:
+
+```js
+const pizzaOptions = {
+    margarita: {
+        toppings: ['tomatoe sauce','cheese'],
+        availableSizes: ['small','medium','large']
+    },
+    pepperoni: {
+        toppings: ['tomatoe sauce','cheese','pepperoni],
+        availableSizes: ['small','medium','large']
+    },
+    threecheeses: {
+        toppings: ['tomatoe sauce','cheddar', 'mozarella','parmesan']
+    }
+}
+```
+
+You might want to try and get the toppings for a non-existing barbecue pizza🍕, but you'll get an error:
+
+```js
+pizzaOptions.barbecue.toppings
+// returns: TypeError: Cannot read properties of undefined {reading 'toppings'}
+```
+
+Using **optional chaining**, you can essentially tell JS or TypeScript: look for toppings on this pizza, but just return "undefined" if the pizza doesn't exist.
+
+
+```js
+pizzaOptions.barbecue?.toppings
+// this just returns 'undefined'
+```
+
+If a value exists for "toppings", it will be returned as normal:
+
+
+```js
+pizzaOptions.margarita.toppings
+// returns expected value: ['tomatoe sauce','cheese']
+```
+
+There you have it! Optional chaining is very useful when you're not sure what you have in your data objects, and you don't really mind if there's nothing there.
+
+Check out [the documentation on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) for more info.

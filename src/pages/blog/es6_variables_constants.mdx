@@ -1,0 +1,146 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "Understanding Variables and constants in JavaScript (ES6)"
+pubDate: 2022-12-27
+---
+
+Old-timey JavaScript had a problem. Between hoisting and ambiguous variable declarations, managing data in your code can be a real problem in JS.
+Thankfully since ES6 we have new ways to make sure our variables and our constants are managed properly.
+Let's see how it works, and let's clean up our variables.
+
+## Undeclared variables - don't do it !
+
+The first problem is that if we create a variable without declaring it, it's defined as a global variable by default.
+Here's an example with functions:
+```javascript
+function declareVar() {
+  test = "test";
+}
+
+function declareVar2() {
+  test = "test 2";
+}
+
+declareVar();
+console.log(test);// Returns "test"
+
+declareVar2();
+console.log(test);// Returns "test 2"
+
+```
+
+We just created a global variable `test`, which is visible globally, outside of the function `declareVar()`.
+`declareVar2()` will modify the same variable...not necessarily what's intended.
+
+We can force the declaration of variables by using JS strict mode:
+
+```javascript
+`use strict`;
+test = "test";
+```
+
+This will throw the following error, to protect us from ourselves:
+
+	`ReferenceError: num is not defined`
+
+But even if we are careful to declare variables explicitely, there's more problems.
+
+## `var` - ambiguous variable definition
+
+The second problem is that even if we declare a variable properly using `var`, it's still possible to redeclare the same variable later, which doesn't help to keep variable names consistent and can make code very hard to debug:
+
+```javascript
+var num = 100;
+// Some other code...
+var num = 200;
+```
+
+Looking at the code above, it's not clear if we're assigning a new value to an existing variable (but then redeclaring it is wrong), or if we're declaring a new variable with the same name (two variables with the same name? That's a recipe for disaster). Either is bad.
+
+The scope of variables is also a problem. This can cause confusion if we create a variable in a block; it will start spilling out of the block:
+
+```javascript
+console.log(msg);// We can see this variable outside the loop block
+for(var i = 0; i < 3; i++) {
+	var msg = "Hellow world";
+}
+```
+
+Hoisting means that `msg`, which is declared inside the `for` loop, will be visible outside the loop, even before it was declared. This isn't ideal either.
+
+Let's see what ES6 offers as an alternative to solve these issues.
+
+## Better alternatives: `const`  and `let`
+
+### `let` is a cleaner, less error-prone way to declare variables
+
+First of all, declaring a variable using `let`, you cannot redeclare the same variable twice in the same scope:
+
+```javascript
+let num = 100;
+// Some other code...
+let num = 200;
+```
+
+Will throw
+
+	SyntaxError: Identifier 'num' has already been declared
+
+Variables declared using `let` also have block scope. Block scope means that variables won't be available outside the blocks of code they were declared in (within curly braces `{` and `}`)
+This code:
+
+```javascript
+for(var i = 0; i < 3; i++) {
+  let msg2 = "Hellow world";
+}
+console.log(msg2);
+```
+
+Won't work and throw the a `ReferenceError`: `msg2 is not defined`, because `msg2` is limited to the inside of the loop block.
+
+Also the variable isn't available until it's declared:
+
+```javascript
+for(var i = 0; i < 3; i++) {
+  console.log(msg2);
+  let msg2 = "Hellow world";
+}
+```
+
+Will also throw a `ReferenceError` error (`Cannot access 'msg2' before initialization`):  `msg2` is not fully initialised yet.
+
+Therefore we have to use a more logical approach and we can only see the variable *after* its been declared, in it own block:
+
+```javascript
+for(var i = 0; i < 3; i++) {
+	let msg2 = "Hellow world";
+	console.log(msg2);
+}
+```
+
+Cleaner, easier to read, unambiguous. Boom.
+
+### `const`  is for variables that should not change 
+
+Sometimes you need to make sure that the value of your variables doesn't change; it needs to be *immutable*.
+For this purpose, use `const` instead of `let`. In fact, use `const` by default, unless you have to declare a variable that absolutely *has* to change value over the life cycle of your program.
+
+**Watch out though**, if your constant is a reference to an object, you *will* be able to change the *properties* of the object, as below:
+
+```javascript
+const client = {name:"John", "number":234};
+client.name = "Sue"; // client.name was changed
+```
+
+To make an object reference immutable, use the method `Object.freeze`:
+
+```javascript
+const client = Object.freeze({name:"John", "number":234});
+client.name = "Sue"; // this will have no effect
+console.log(client); // will still output {name: "John", number: 234}
+```
+
+This only works at the first level through; if your object's properties are references to other objects, you'll have to use `Object.freeze`  on each one.
+
+And there you go, this is how you declare variables cleanly in ES6+.
+Let me know how you like to manage your variables in JS in the comment.
