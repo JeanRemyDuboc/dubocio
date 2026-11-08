@@ -90,4 +90,16 @@
     @apply justify-center;
     @apply items-center;
   }
+
+  #stcm-wrapper {
+    --boxShadow: -5px 5px 10px 0px #00000012, 0px 0px 50px 0px #0000001a;
+    --fontFamily: Helvetica Neue, Segoe UI, Arial, sans-serif;
+    --primaryColor: #3B62E2;
+    --backgroundColor: #FFFFFF;
+    --textColor: #253B48;
+    --backdropBackgroundColor: #ff000033;
+    --backdropBackgroundBlur: 0px;
+    --iconColor: #FFFFFF;
+    --iconBackgroundColor: #3B62E2;
+  }
 }
